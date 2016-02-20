@@ -51,11 +51,19 @@ public class ATMService {
      */
     private void addBankATMsToResult(Collection<AtmOffice> result, Integer network_id, Integer bank_id,
                                      boolean showAtms, boolean showOffices, GeoPosition userPosition, int radius) {
-        for (AtmOffice atmOffice : atmsDAO.getBankAtms(network_id, bank_id, showAtms, showOffices)) {
+        long begin = System.currentTimeMillis();
+        List<AtmOffice> listAtms = atmsDAO.getBankAtms(network_id, bank_id, showAtms, showOffices);
+        System.out.println( listAtms.size());
+        System.out.println("Get From DAtabase "+ (System.currentTimeMillis() - begin));
+
+         begin = System.currentTimeMillis();
+        for (AtmOffice atmOffice : listAtms) {
             if (GeoUtil.inRadius(userPosition, atmOffice.getGeoPosition(), radius)) {
                 result.add(atmOffice);
             }
         }
+        System.out.println(" Filtering "+ (System.currentTimeMillis() - begin));
+
     }
 
     /**

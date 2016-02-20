@@ -97,7 +97,9 @@ public class AtmsDAO implements IAtmsDAO {
         if (!filter.isEmpty()) {
             queryString += " and a.address like :filter";
         }
-
+        //TODO change query to - select * from atmlocator.atm where acos(sin(48.909512) * sin(latitude)
+        //+ cos(48.909512) * cos(latitude) * cos(longitude
+        //        - 24.698794499999963))*111200*180/pi()<100000;
         TypedQuery<AtmOffice> query = entityManager.createQuery(queryString + order, AtmOffice.class);
         query.setParameter("bank_id", bankId);
         if (!filter.isEmpty()) {

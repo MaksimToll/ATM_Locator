@@ -40,13 +40,13 @@ public class AtmOffice implements Comparable<AtmOffice> {
     private String photo;  // filename of real street photo
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atmOffice", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "atmOffice", fetch = FetchType.LAZY)
     private Set<AtmComment> atmComments;
 
     @Transient
     private int commentsCount;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bank_id")
     private Bank bank;
 
